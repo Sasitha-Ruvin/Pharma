@@ -1,0 +1,109 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int       @id @default(autoincrement())
+  email     String    @unique
+  name      String
+  address   String
+  password  String
+  role      String
+  contact   String?
+  status    String?
+  dateJoined DateTime?
+  isDeleted Boolean  @default(false)
+  orders    Order[]   // Relation to Order
+}
+
+model Supplier {
+  id        Int @id @default(autoincrement())
+  name      String
+  address   String
+  contact   String
+  email     String
+  country   String
+  tier      String
+  products  Product[]
+  isDeleted Boolean  @default(false)
+}
+
+model Product {
+  id          Int         @id @default(autoincrement())
+  name        String
+  expiration  DateTime
+  supplierId  Int
+  quantity    Int
+  storetemp   String
+  shelf       String
+  description String
+  directions  String
+  sideEffect  String
+  supplier    Supplier    @relation(fields: [supplierId], references: [id])
+  isDeleted   Boolean     @default(false)
+  orderItems  OrderItem[] // Relation to OrderItem
+}
+
+model Client {
+  id            Int            @id @default(autoincrement())
+  name          String
+  type          String
+  email         String         @unique
+  contact       String
+  contractType  String
+  paymentMethod String
+  tier          String
+  addresses     ClientAddress[]
+  orders        Order[]        // Relation to Order
+  isDeleted     Boolean        @default(false)
+}
+
+model ClientAddress {
+  id        Int     @id @default(autoincrement())
+  clientId  Int
+  address   String
+  client    Client  @relation(fields: [clientId], references: [id])
+
+  @@index([clientId])
+}
+
+model Order {
+  id                      Int           @id @default(autoincrement())
+  orderDate               DateTime
+  deliveryAddress         String
+  estimatedDeliveryDate   DateTime?
+  total                   Float
+  status                  String        @default("Pending")
+  clientId                Int
+  client                  Client        @relation(fields: [clientId], references: [id])
+  employeeId              Int
+  employee                User          @relation(fields: [employeeId], references: [id])
+  orderItems              OrderItem[]
+
+  @@index([clientId])
+  @@index([employeeId])
+}
+
+model OrderItem {
+  id        Int      @id @default(autoincrement())
+  orderId   Int
+  productId Int
+  quantity  Int
+  price     Float
+  order     Order    @relation(fields: [orderId], references: [id])
+  product   Product  @relation(fields: [productId], references: [id])
+
+  @@index([orderId])
+  @@index([productId])
+}
