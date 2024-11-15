@@ -1,15 +1,7 @@
-# Project Title 🚀
-
-
+PharmaSys
 ![MySQL](https://img.shields.io/badge/mysql-4479A1.svg?style=for-the-badge&logo=mysql&logoColor=white) ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white) ![Next JS](https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white)
-
-
-
-
-
 ## Description
-A brief description of the project, explaining its purpose and key features.
-
+PharmaSys is a Next.js application that helps businesses manage their employees, suppliers, orders, and products. It’s designed to meet specific client needs and isn’t meant to replace full-scale SAP or ERP systems. PharmaSys offers basic ERP features at a much lower cost, making it a great option for small to medium-sized businesses. 
 ---
 
 ## Table of Contents
@@ -25,31 +17,36 @@ A brief description of the project, explaining its purpose and key features.
 ---
 
 ## Features
-- Feature 1
-- Feature 2
-- Feature 3
+- Employee Management (Employee CRUD)
+- Product Management (Product CRUD)
+- Supplier Management (Supplier CRUD)
+- Order Management
+- Trainee Resource Hub
+- Report Generation
+  
 
 ---
 
 ## Installation
 1. Clone the repository:
-    ```bash
-    git clone https://github.com/username/repo-name.git
-    ```
 2. Navigate to the project directory:
-    ```bash
-    cd repo-name
-    ```
 3. Install dependencies:
-    ```bash
-    npm install
-    ```
-
+4. Add the env file
+5. Create the database
+6. Run the prisma migration
 ---
 
 ## Usage
 Run the development server:
 
-```bash
-npm run dev
+This project is still under development
+
+Production Version - ***under development***
+
+Technologies Used
+
+	•	Next.js
+	•	MySQL
+	•	Prisma ORM
+	•	TailwindCSS
 
