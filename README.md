@@ -37,7 +37,7 @@ PharmaSys is a Next.js application that helps businesses manage their employees,
 ---
 
 ## Usage
-Run the development server:
+Run the server
 
 ---
 
@@ -45,6 +45,7 @@ Run the development server:
 This project is still under development
 
 Production Version - ***under development***
+Link to the production version will be displayed soon
 
 ---
 
