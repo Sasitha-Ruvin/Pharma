@@ -1,9 +1,10 @@
-PharmaSys
+## PharmaSys
 
 
 ![MySQL](https://img.shields.io/badge/mysql-4479A1.svg?style=for-the-badge&logo=mysql&logoColor=white) ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white) ![Next JS](https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white)
 ## Description
 PharmaSys is a Next.js application that helps businesses manage their employees, suppliers, orders, and products. It’s designed to meet specific client needs and isn’t meant to replace full-scale SAP or ERP systems. PharmaSys offers basic ERP features at a much lower cost, making it a great option for small to medium-sized businesses. 
+
 ---
 
 ## Table of Contents
@@ -11,10 +12,7 @@ PharmaSys is a Next.js application that helps businesses manage their employees,
 - [Installation](#installation)
 - [Usage](#usage)
 - [Technologies Used](#technologies-used)
-- [Contributing](#contributing)
 - [Deployment](#deployment)
-- [Screenshots](#screenshots)
-- [License](#license)
 
 ---
 
@@ -26,7 +24,6 @@ PharmaSys is a Next.js application that helps businesses manage their employees,
 - Trainee Resource Hub
 - Report Generation
   
-
 ---
 
 ## Installation
@@ -36,16 +33,22 @@ PharmaSys is a Next.js application that helps businesses manage their employees,
 4. Add the env file
 5. Create the database
 6. Run the prisma migration
+7. 
 ---
 
 ## Usage
 Run the development server:
 
+---
+
+## Deployment
 This project is still under development
 
 Production Version - ***under development***
 
-Technologies Used
+---
+
+## Technologies Used
 
 	•	Next.js
 	•	MySQL
