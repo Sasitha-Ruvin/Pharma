@@ -33,7 +33,7 @@ PharmaSys is a Next.js application that helps businesses manage their employees,
 4. Add the env file
 5. Create the database
 6. Run the prisma migration
-7. 
+   
 ---
 
 ## Usage
