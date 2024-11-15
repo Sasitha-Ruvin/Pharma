@@ -50,8 +50,11 @@ Production Version - ***under development***
 
 ## Technologies Used
 
-	•	Next.js
-	•	MySQL
-	•	Prisma ORM
-	•	TailwindCSS
+• Next.js
+• MySQL
+• Prisma ORM
+• TailwindCSS
 
+*THIS IS A COLLEGE PROJECT AND DO NOT CONTAIN ANY LICENCES AND CONTRIBUTION FORKS WILL NOT BE MERGED*
+
+**Thank you for checking it out**
