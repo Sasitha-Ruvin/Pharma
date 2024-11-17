@@ -28,17 +28,37 @@ PharmaSys is a Next.js application that helps businesses manage their employees,
 
 ## Installation
 1. Clone the repository:
+   ```bash
+   git clone <repository link>
 2. Navigate to the project directory:
+   ```bash
+   cd <project name>
 3. Install dependencies:
+   ```bash
+   npm install
 4. Add the env file
-5. Create the database
-6. Run the prisma migration
-   
+   ```bash
+   touch .env
+5. Add the connection string to the .env file
+   ```bash
+   DATABASE_URL="mysql://root@localhost:3306/pharma"
+6. Create the database:
+   - Navigate to your local server.
+   - Create the `Pharma` database.
+7. Migrate the prisma schema to the database
+    ```bash
+   npx prisma migrate dev --name init
+   npx prisma migrate dev --name added_tables
+8. Seed the database
+   ```bash
+   npm run seed
 ---
 
 ## Usage
 Run the server
-
+```bash
+npm run dev
+```
 ---
 
 ## Deployment
