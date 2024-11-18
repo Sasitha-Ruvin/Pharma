@@ -43,7 +43,8 @@ PharmaSys is a Next.js application that helps businesses manage their employees,
    ```bash
    DATABASE_URL="mysql://root@localhost:3306/pharma"
 6. Create the database:
-   - Navigate to your local server.
+   - Setup XAMPP and MySQL
+   - Navigate to your local server
    - Create the `Pharma` database.
 8. Migrate the prisma schema to the database
     ```bash
