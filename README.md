@@ -45,11 +45,11 @@ PharmaSys is a Next.js application that helps businesses manage their employees,
 6. Create the database:
    - Navigate to your local server.
    - Create the `Pharma` database.
-7. Migrate the prisma schema to the database
+8. Migrate the prisma schema to the database
     ```bash
    npx prisma migrate dev --name init
    npx prisma migrate dev --name added_tables
-8. Seed the database
+9. Seed the database
    ```bash
    npm run seed
 ---
@@ -75,6 +75,8 @@ Link to the production version will be displayed soon
 • MySQL
 • Prisma ORM
 • TailwindCSS
+
+![Next JS](https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white) ![MySQL](https://img.shields.io/badge/mysql-4479A1.svg?style=for-the-badge&logo=mysql&logoColor=white) ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white) ![Prisma](https://img.shields.io/badge/Prisma-2D3748?style=for-the-badge&logo=prisma&logoColor=white)
 
 *THIS IS A COLLEGE PROJECT AND DO NOT CONTAIN ANY LICENCES AND CONTRIBUTION FORKS WILL NOT BE MERGED*
 
