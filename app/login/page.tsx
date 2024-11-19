@@ -77,7 +77,7 @@ export default function Login() {
   return (
     <div className="flex h-screen">
       {/* Left section */}
-      <div className="flex-1 flex flex-col items-center justify-center bg-teal-700 text-white p-8">
+      <div className="flex-1 flex flex-col items-center justify-center bg-cyan-950 text-white p-8">
         <div className="w-32 h-32 bg-gray-300 rounded-md mb-4">
           <Image src={logo} alt="Logo" className="w-32 h-32" />
         </div>
