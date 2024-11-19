@@ -17,27 +17,3 @@ export async function GET() {
     
 }
 
-// Adding Suppliers
-
-export async function POST(request:Request) {
-    try {
-        const data = await request.json();
-        const newSupplier = await prisma.supplier.create({
-            data: {
-                name: data.name,
-                address: data.address,
-                contact: data.contact,
-                email: data.email,
-                country: data.country,
-                tier: data.tier
-            },
-        });
-        return NextResponse.json(newSupplier,{status:201});
-        
-    } catch (error) {
-        console.log("Error Creating Supplier",error);
-        NextResponse.json({error:'Failed to Create supplier'},{status:500})
-        
-    }
-    
-}
