@@ -10,44 +10,38 @@ async function main() {
 
   await prisma.user.create({
     data: {
-      email: 'admin@example.com',
+      email: 'john.doe@example.com',
+      name: 'John Doe',
+      address: '123 Main St',
       password: hashedPassword,
-      role: 'admin',
-      name: 'John Doe',      // Add a name here
-      address: 'Admin Address'  // Add an address here
+      role: 'Chief Operating Officer',
+      contact: '123-456-7890',
+      status: 'Permanent',
+      dateJoined: new Date(),
     },
   });
 
-  console.log('Admin user created');
-   // Create employee user
-   const employeePassword = await bcrypt.hash('employee123', 10);
-   await prisma.user.create({
-     data: {
-       email: 'employee@example.com',
-       password: employeePassword,
-       role: 'employee',
-       name: 'Jane Smith',
-       address: 'Employee Address'
-     },
-   });
- 
-   console.log('Employee user created');
+  console.log('User seeded successfully');
 
-
-    // Create employee user
-  const inventoryPassword = await bcrypt.hash('inventory123', 10);
+  const hashedHRPassword = await bcrypt.hash('hr123', 10);
   await prisma.user.create({
-    data: {
-      email: 'inventory@example.com',
-      password: inventoryPassword,
-      role: 'inventory',
-      name: 'Jane Smith',
-      address: 'Employee Address'
-    },
-  });
+  data: {
+    email: 'janedoe@example.com',
+    name: 'Jane Doe',
+    address: '123 Main St',
+    password: hashedHRPassword,
+    role: 'HR Manager',
+    contact: '123-456-7890',
+    status: 'Permanent',
+    dateJoined: new Date(),
+  },
+});
 
-  console.log('Employee user created');
+console.log('HR Manager seeded successfully');
 }
+
+
+
 
 
 main()
