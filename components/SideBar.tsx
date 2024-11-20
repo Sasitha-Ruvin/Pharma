@@ -1,24 +1,33 @@
-"use client"
 import React, { useState, useEffect } from 'react';
-import LogOutButton from '@/components/ui/LogOutButton';
 import SideBarLinkButton from './ui/SideBarLinkButton';
 import ActionButton from './ui/ActionButton';
 
 const SideBar = () => {
   const [userName, setUserName] = useState<string | null>(null);
   const [userRole, setUserRole] = useState<string | null>(null);
-  const [userStaus, setUserStatus] = useState<string | null>(null);
+  const [userStatus, setUserStatus] = useState<string | null>(null);
+  const [isLoaded, setIsLoaded] = useState(false); // Track if data is loaded
 
   useEffect(() => {
-    // This will only run on the client side
-    setUserName(sessionStorage.getItem("name"));
-    setUserRole(sessionStorage.getItem("role"));
-    setUserStatus(sessionStorage.getItem("status"));
+    // Fetch session data only on the client
+    setUserName(sessionStorage.getItem('name'));
+    setUserRole(sessionStorage.getItem('role'));
+    setUserStatus(sessionStorage.getItem('status'));
+    setIsLoaded(true); // Mark as loaded after fetching data
   }, []);
 
   const isButtonEnabled = (allowedRoles: string[]) => {
     return allowedRoles.includes(userRole || '');
   };
+
+  // Render a loader or fallback UI while session data is loading
+  if (!isLoaded) {
+    return (
+      <div className="bg-[#20252C] text-white w-1/4 p-6 flex justify-center items-center">
+        <p>Loading...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-[#20252C] text-white w-1/4 p-6 flex flex-col justify-between">
@@ -58,20 +67,22 @@ const SideBar = () => {
               <SideBarLinkButton href="/clients/index" label="Client Management" />
             )}
           </li>
-          <li className='mb-4'>
-            {userStaus === 'Trainee' &&(
-              <SideBarLinkButton href='/resourcehub/index' label='Resource Hub'/>
+          <li className="mb-4">
+            {userStatus === 'Trainee' && (
+              <SideBarLinkButton href="/resourcehub/index" label="Resource Hub" />
             )}
-
-
           </li>
-    
+          <li className="mb-4">
+            {isButtonEnabled(['Chief Operating Officer', 'Admin']) && (
+              <SideBarLinkButton href="/analytics/index" label="Analytics" />
+            )}
+          </li>
         </ul>
       </div>
 
       {/* Log Out Button */}
       <div className="mt-4">
-        <ActionButton isLogout={true}/>
+        <ActionButton isLogout={true} />
       </div>
     </div>
   );
