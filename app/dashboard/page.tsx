@@ -39,6 +39,9 @@ const Dashboard = () => {
               <Link href={'/products/index'}>
               <button className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600">Manage Product</button>
               </Link>
+              <Link href={'/suppliers/index'}>
+              <button className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600">Manage Suppliers</button>
+              </Link>
               <button className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600">Manage Order</button>
               <button className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600">Manage Client</button>
         </>    
