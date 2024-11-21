@@ -1,15 +1,15 @@
+//users/index
 'use client';
 
 import React, { useEffect, useState } from 'react';
 import { DataGrid, GridRowsProp, GridColDef } from '@mui/x-data-grid';
 import SideBar from '@/components/SideBar';
 import DataGridTable from '@/components/DataGridTable';
-import AddButton from '@/components/ui/AddButton';
-import DeleteButton from '@/components/ui/DeleteButton';
 import SearchBar from '@/components/SearchBar';
 import useUsers from '@/app/hooks/useUsers';
-import UpdateButton from '@/components/ui/UpdateButton';
+
 import ActionButton from '@/components/ui/ActionButton';
+
 
 const columns: GridColDef[] = [
   { field: 'id', headerName: 'ID', width: 70 },
@@ -64,8 +64,22 @@ const Page = () => {
         </div>
 
         <div className="mt-4 flex flex-row gap-5">
+          <div className='flex gap-4'>
           <ActionButton label='Remove Employee' onClick={handleDelete} variant='outlined' color='error' />
-          <ActionButton label='Update Employee' link='/users/update' variant='contained' color='primary'/>
+          <ActionButton
+              label="Update Employee"
+              onClick={() => {
+                if (!selectedUserId) {
+                  alert('Please select a user to update.');
+                  return;
+                }
+                // Navigate to update user page
+                window.location.href = `/users/update/${selectedUserId}`;
+              }}
+              variant="contained"
+              color="primary"
+            />
+          </div>
         </div>
       </div>
     </div>

@@ -3,13 +3,14 @@
 import { NextResponse } from 'next/server';
 import prisma from '../../../lib/prisma';
 import bcrypt from 'bcrypt';
+import { error } from 'console';
 
 export async function GET() {
   try {
     const users = await prisma.user.findMany({
       where: {
         role: {
-          not: 'COO'
+          not: 'Chief Operating Officer'
         },
         isDeleted: false,
       }
@@ -23,6 +24,21 @@ export async function GET() {
 export async function POST(request:Request) {
   try{
     const data = await request.json();
+
+    const existingUser = await prisma.user.findFirst({
+      where:{
+        email:data.email,
+        role:data.role,
+        isDeleted:false,
+      },
+    });
+
+    if(existingUser){
+      return NextResponse.json(
+        {error:'An Employee with same Email and Role alredy Exists'},
+        {status:400}
+      );
+    }
     const hashedPassword = await bcrypt.hash(data.password, 10);
     const newUser = await prisma.user.create({
       data: {

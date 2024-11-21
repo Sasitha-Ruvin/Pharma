@@ -1,17 +1,62 @@
+  //app/api/user/[id]/route.ts
+
 import { NextResponse } from "next/server";
 import prisma from '../../../../lib/prisma';
 
-export async function DELETE(request: Request, { params }: { params: { id: string } }) {
-  const { id } = await params; 
-
+export async function GET(request: Request, { params }: { params: { id: string } }) {
   try {
-    if (!id) {
-      return NextResponse.json({ error: 'ID is required' }, { status: 400 });
+    const { id } = await params; 
+    const userId = parseInt(id, 10);
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+    });
+
+    if (!user) {
+      return NextResponse.json({ error: 'User not found' }, { status: 404 });
     }
 
-    // Ensure id is a number if needed
+    return NextResponse.json(user, { status: 200 });
+  } catch (error) {
+    console.error('Error fetching user:', error);
+    return NextResponse.json({ error: 'Failed to fetch user' }, { status: 500 });
+  }
+}
+
+export async function PUT(request: Request, { params }: { params: { id: string } }) {
+  try {
+    const { id } = await params; 
     const userId = parseInt(id, 10);
-    
+    const data = await request.json();
+
+    if (isNaN(userId)) {
+      return NextResponse.json({ error: 'Invalid user ID' }, { status: 400 });
+    }
+
+    const updatedUser = await prisma.user.update({
+      where: { id: userId },
+      data: {
+        name: data.name,
+        email: data.email,
+        address: data.address,
+        role: data.role,
+        contact: data.contact,
+        status: data.status,
+        dateJoined: data.dateJoined ? new Date(data.dateJoined) : null,
+      },
+    });
+
+    return NextResponse.json(updatedUser, { status: 200 });
+  } catch (error) {
+    console.error('Error updating user:', error);
+    return NextResponse.json({ error: 'Failed to update user' }, { status: 500 });
+  }
+}
+
+export async function DELETE(request: Request, { params }: { params: { id: string } }) {
+  try {
+    const { id } = await params; 
+    const userId = parseInt(id, 10);
+
     if (isNaN(userId)) {
       return NextResponse.json({ error: 'Invalid ID format' }, { status: 400 });
     }

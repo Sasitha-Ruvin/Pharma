@@ -13,97 +13,124 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Admin {
+  id          Int         @id @default(autoincrement())
+  email       String      @unique
+  name        String
+  password    String
+  role        String
+}
+
 model User {
-  id        Int       @id @default(autoincrement())
-  email     String    @unique
-  name      String
-  address   String
-  password  String
-  role      String
-  contact   String?
-  status    String?
+  id         Int       @id @default(autoincrement())
+  email      String    @unique
+  name       String
+  address    String
+  password   String
+  role       String
+  contact    String?
+  status     String?
   dateJoined DateTime?
-  isDeleted Boolean  @default(false)
-  orders    Order[]   // Relation to Order
+  isDeleted  Boolean   @default(false)
+  orders     Order[]   @relation("UserOrders")
 }
 
 model Supplier {
-  id        Int @id @default(autoincrement())
-  name      String
-  address   String
-  contact   String
-  email     String
-  country   String
-  tier      String
-  products  Product[]
-  isDeleted Boolean  @default(false)
-}
-
-model Product {
-  id          Int         @id @default(autoincrement())
-  name        String
-  expiration  DateTime
-  supplierId  Int
-  quantity    Int
-  storetemp   String
-  shelf       String
-  description String
-  directions  String
-  sideEffect  String
-  supplier    Supplier    @relation(fields: [supplierId], references: [id])
-  isDeleted   Boolean     @default(false)
-  orderItems  OrderItem[] // Relation to OrderItem
+  id         Int      @id @default(autoincrement())
+  name       String
+  address    String
+  contact    String
+  email      String
+  country    String
+  tier       String
+  isDeleted  Boolean   @default(false)
+  medications Medication[]
 }
 
 model Client {
-  id            Int            @id @default(autoincrement())
-  name          String
-  type          String
-  email         String         @unique
-  contact       String
-  contractType  String
-  paymentMethod String
-  tier          String
-  addresses     ClientAddress[]
-  orders        Order[]        // Relation to Order
-  isDeleted     Boolean        @default(false)
+  id             Int             @id @default(autoincrement())
+  name           String
+  type           String
+  email          String          @unique
+  contact        String
+  contractType   String
+  paymentMethod  String
+  tier           String
+  addresses      ClientAddress[]
+  orders         Order[]         @relation("ClientOrders")
+  isDeleted      Boolean         @default(false)
 }
 
 model ClientAddress {
-  id        Int     @id @default(autoincrement())
+  id        Int    @id @default(autoincrement())
   clientId  Int
   address   String
-  client    Client  @relation(fields: [clientId], references: [id])
+  client    Client @relation(fields: [clientId], references: [id])
 
   @@index([clientId])
+}
+
+model MedicationName {
+  id   Int      @id @default(autoincrement())
+  name String   @unique
+  medications Medication[]
+}
+
+model Medication {
+  id                   Int             @id @default(autoincrement())
+  medicationNameId     Int
+  scientificName       String
+  ingredients          String
+  category             String
+  type                 String
+  warnings             String
+  sideEffects          String
+  batchCode            String
+  arrivalDate          DateTime
+  expireDate           DateTime
+  supplierId           Int
+  amount               Int
+  pricePerUnit         Float
+  bestBeforeDate       DateTime
+  shelfAddress         String
+  handlingInstructions String
+  storetemp            String?
+  supplier             Supplier        @relation(fields: [supplierId], references: [id])
+  orderMedications     OrderMedication[]
+  medicationName       MedicationName  @relation(fields: [medicationNameId], references: [id])
+
+  @@index([supplierId])
+  @@index([medicationNameId])
 }
 
 model Order {
-  id                      Int           @id @default(autoincrement())
-  orderDate               DateTime
-  deliveryAddress         String
-  estimatedDeliveryDate   DateTime?
-  total                   Float
-  status                  String        @default("Pending")
-  clientId                Int
-  client                  Client        @relation(fields: [clientId], references: [id])
-  employeeId              Int
-  employee                User          @relation(fields: [employeeId], references: [id])
-  orderItems              OrderItem[]
+  id               Int               @id @default(autoincrement())
+  orderDate        DateTime
+  clientId         Int
+  userId           Int
+  orderItems       String            // Consider using JSON if available
+  total            Float
+  estDeliveryDate  DateTime
+  orderStatus      String            @default("pending")
+  deliveryAddress  String
+  notes            String?
+  client           Client            @relation("ClientOrders", fields: [clientId], references: [id])
+  user             User              @relation("UserOrders", fields: [userId], references: [id])
+  medications      OrderMedication[]
 
   @@index([clientId])
-  @@index([employeeId])
+  @@index([userId])
 }
 
-model OrderItem {
-  id        Int      @id @default(autoincrement())
-  orderId   Int
-  productId Int
-  quantity  Int
-  price     Float
-  order     Order    @relation(fields: [orderId], references: [id])
-  product   Product  @relation(fields: [productId], references: [id])
+model OrderMedication {
+  id           Int         @id @default(autoincrement())
+  orderId      Int
+  medicationId Int
+  quantity     Int
+  price        Float 
+  order        Order       @relation(fields: [orderId], references: [id])
+  medication   Medication  @relation(fields: [medicationId], references: [id])
 
   @@index([orderId])
-  @@index([productId])
+  @@index([medicationId])
 }
