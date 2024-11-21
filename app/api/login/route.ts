@@ -1,8 +1,11 @@
 
 
 import { NextResponse } from 'next/server';
-import prisma from '../../../lib/prisma'; //prisma is something to connect nextJS with mysql, we can use tauri too i havent tried that
+import prisma from '../../../lib/prisma'; //prisma is something to connect nextJS with mysql,
 import bcrypt from 'bcrypt'; // this one is just to decrypt passwords, right now passwords are saved as hashcodes
+import jwt from 'jsonwebtoken';
+
+const SECRET_KEY = process.env.JWT_SECRET || "secretKEY";
 
 export async function POST(request: Request) {
   const { role, email, password, status } = await request.json();
@@ -20,7 +23,13 @@ export async function POST(request: Request) {
   if (user) {
     const isPasswordValid = await bcrypt.compare(password, user.password); 
     if (isPasswordValid) {
-      return NextResponse.json({  id: user.id, role: user.role, name: user.name, status:user.status}, { status: 200 });
+
+      const token = jwt.sign(
+        {id:user.id, name:user.name, role:user.role, status:user.status},
+        SECRET_KEY,
+        {expiresIn:'2h'}
+      );
+      return NextResponse.json({token}, { status: 200 });
     }
   }
 

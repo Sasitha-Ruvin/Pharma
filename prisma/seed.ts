@@ -6,7 +6,10 @@ const bcrypt = require('bcrypt');
 const prisma = new PrismaClient();
 
 async function main() {
-  const hashedPassword = await bcrypt.hash('admin123', 10);
+
+
+
+  const hashedPassword = await bcrypt.hash('coo123', 10);
 
   await prisma.user.create({
     data: {
@@ -21,7 +24,37 @@ async function main() {
     },
   });
 
-  console.log('User seeded successfully');
+  console.log('COO seeded successfully');
+
+  const adminPassword = await bcrypt.hash('admin',10);
+  await prisma.admin.create({
+    data:{
+      email:"admin@email.com",
+      name:"Admin",
+      password:adminPassword,
+      role:"Admin"
+    }
+  })
+
+  console.log('Admin seeded successfully');
+
+  const hashedAdminPassword = await bcrypt.hash('admin',10);
+  await prisma.user.create({
+    data: {
+      email: 'admin@mail.com',
+      name: 'Admin',
+      address: '123 Main St',
+      password: hashedAdminPassword,
+      role: 'Administrator',
+      contact: '123-456-7890',
+      status: 'Permanent',
+      dateJoined: new Date(),
+    },
+  });
+
+  console.log('Admin seeded successfully');
+
+
 
   const hashedHRPassword = await bcrypt.hash('hr123', 10);
   await prisma.user.create({

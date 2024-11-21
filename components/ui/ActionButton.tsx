@@ -3,6 +3,7 @@ import { Button, IconButton, CircularProgress } from '@mui/material';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import Cookies from 'js-cookie'
 
 interface ActionButtonProps {
     label?: string;
@@ -40,8 +41,7 @@ const ActionButton = ({
     };
 
     const handleLogout = () => {
-        sessionStorage.removeItem('role');
-        sessionStorage.removeItem('name');
+        Cookies.remove('authToken');
         router.push('/login');
     };
 

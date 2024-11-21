@@ -102,6 +102,7 @@ const Forms = ({
               return (
                 <Select
                   key={field.name}
+                  instanceId={`form-${field.name}`}
                   options={field.options}
                   onChange={(option) => handleSelectChange(field.name, option)}
                   placeholder={field.label}
@@ -140,14 +141,13 @@ const Forms = ({
             );
           })}
         </div>
-        <Button
-          variant="contained"
+        <button
           color="primary"
-          className="mt-6"
+          className="mt-6 text-white bg-blue-600 font-bold p-2 rounded-lg w-24 hover:bg-blue-400 cursor-pointer transition-all duration-150"
           type="submit"
         >
           Save
-        </Button>
+        </button>
       </form>
     </div>
   );

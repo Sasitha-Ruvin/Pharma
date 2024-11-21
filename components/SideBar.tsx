@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import SideBarLinkButton from './ui/SideBarLinkButton';
 import ActionButton from './ui/ActionButton';
+import Cookies from 'js-cookie'
+import {jwtDecode} from 'jwt-decode';
 
 const SideBar = () => {
   const [userName, setUserName] = useState<string | null>(null);
@@ -9,25 +11,21 @@ const SideBar = () => {
   const [isLoaded, setIsLoaded] = useState(false); // Track if data is loaded
 
   useEffect(() => {
-    // Fetch session data only on the client
-    setUserName(sessionStorage.getItem('name'));
-    setUserRole(sessionStorage.getItem('role'));
-    setUserStatus(sessionStorage.getItem('status'));
-    setIsLoaded(true); // Mark as loaded after fetching data
+    const token = Cookies.get('authToken');
+
+    if(token){
+      const decodedToken:{name:string; role:string; status:string} = jwtDecode(token);
+      setUserName(decodedToken.name);
+      setUserRole(decodedToken.role);
+      setUserStatus(decodedToken.status);
+    }
   }, []);
 
   const isButtonEnabled = (allowedRoles: string[]) => {
     return allowedRoles.includes(userRole || '');
   };
 
-  // Render a loader or fallback UI while session data is loading
-  if (!isLoaded) {
-    return (
-      <div className="bg-[#20252C] text-white w-1/4 p-6 flex justify-center items-center">
-        <p>Loading...</p>
-      </div>
-    );
-  }
+
 
   return (
     <div className="bg-[#20252C] text-white w-1/4 p-6 flex flex-col justify-between">
