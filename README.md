@@ -1,36 +1,84 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## PharmaSys
 
-## Getting Started
 
-First, run the development server:
+ ![Next JS](https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white) ![MySQL](https://img.shields.io/badge/mysql-4479A1.svg?style=for-the-badge&logo=mysql&logoColor=white) ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white) ![Prisma](https://img.shields.io/badge/Prisma-2D3748?style=for-the-badge&logo=prisma&logoColor=white)
+## Description
+PharmaSys is a Next.js application that helps businesses manage their employees, suppliers, orders, and products. It’s designed to meet specific client needs and isn’t meant to replace full-scale SAP or ERP systems. PharmaSys offers basic ERP features at a much lower cost, making it a great option for small to medium-sized businesses. 
 
+---
+
+## Table of Contents
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Technologies Used](#technologies-used)
+- [Deployment](#deployment)
+
+---
+
+## Features
+- Employee Management (Employee CRUD)
+- Product Management (Product CRUD)
+- Supplier Management (Supplier CRUD)
+- Order Management
+- Trainee Resource Hub
+- Report Generation
+  
+---
+
+## Installation
+1. Clone the repository:
+   ```bash
+   git clone <repository link>
+2. Navigate to the project directory:
+   ```bash
+   cd <project name>
+3. Install dependencies:
+   ```bash
+   npm install
+4. Add the env file
+   ```bash
+   touch .env
+5. Add the connection string to the .env file
+   ```bash
+   DATABASE_URL="mysql://root@localhost:3306/pharma"
+6. Create the database:
+   - Setup XAMPP and MySQL
+   - Navigate to your local server
+   - Create the `Pharma` database.
+8. Migrate the prisma schema to the database
+    ```bash
+   npx prisma migrate dev --name init
+   npx prisma migrate dev --name added_tables
+9. Seed the database
+   ```bash
+   npm run seed
+---
+
+## Usage
+Run the server
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Deployment
+This project is still under development
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Production Version - ***under development***
+Link to the production version will be displayed soon
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## Technologies Used
 
-To learn more about Next.js, take a look at the following resources:
+• Next.js
+• MySQL
+• Prisma ORM
+• TailwindCSS
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+![Next JS](https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white) ![MySQL](https://img.shields.io/badge/mysql-4479A1.svg?style=for-the-badge&logo=mysql&logoColor=white) ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white) ![Prisma](https://img.shields.io/badge/Prisma-2D3748?style=for-the-badge&logo=prisma&logoColor=white)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+*THIS IS A COLLEGE PROJECT AND DO NOT CONTAIN ANY LICENCES AND CONTRIBUTION FORKS WILL NOT BE MERGED*
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+**Thank you for checking it out**
