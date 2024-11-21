@@ -1,8 +1,9 @@
-import React from 'react';
-import { Button, IconButton } from '@mui/material';
+import React, { useState } from 'react';
+import { Button, IconButton, CircularProgress } from '@mui/material';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import Cookies from 'js-cookie'
 
 interface ActionButtonProps {
     label?: string;
@@ -21,12 +22,26 @@ const ActionButton = ({
     color = 'primary',
     isLogout = false,
 }: ActionButtonProps) => {
+    const [loading, setLoading] = useState(false);
     const router = useRouter();
 
-    // Handle the logout process if isLogout is true
+    const handlePrefetchAndNavigate = async (e: React.MouseEvent<HTMLButtonElement>) => {
+        if (!link) return;
+        e.preventDefault();
+        setLoading(true);
+
+        try {
+            // Prefetch the link to improve navigation performance
+            await router.prefetch(link);
+            // Navigate to the link after ensuring it's preloaded
+            router.push(link);
+        } finally {
+            setLoading(false);
+        }
+    };
+
     const handleLogout = () => {
-        sessionStorage.removeItem('role');
-        sessionStorage.removeItem('name'); // Clear other session details if needed
+        Cookies.remove('authToken');
         router.push('/login');
     };
 
@@ -42,13 +57,16 @@ const ActionButton = ({
             <ExitToAppIcon fontSize="large" />
         </IconButton>
     ) : link ? (
-        <Link href={link}>
-            <Button variant={variant} style={buttonStyle}>
-                {label}
-            </Button>
-        </Link>
+        <Button
+            variant={variant}
+            style={buttonStyle}
+            disabled={loading}
+            onClick={(e) => handlePrefetchAndNavigate(e)}
+        >
+            {loading ? <CircularProgress size={20} style={{ color: 'white' }} /> : label}
+        </Button>
     ) : (
-        <Button variant={variant} style={buttonStyle} onClick={onClick}>
+        <Button variant={variant} style={buttonStyle} onClick={onClick} disabled={loading}>
             {label}
         </Button>
     );

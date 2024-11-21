@@ -1,7 +1,11 @@
+//app/hooks/useUsers.ts
+
+import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
 
 const useUsers = (searchQuery:string)=>{
+    const router = useRouter();
     const [allUsers, setAllUsers] = useState<any[]>([]);
     const [filteredUsers, setFilteredUsers] = useState<any[]>([]);
     const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
@@ -32,6 +36,43 @@ const useUsers = (searchQuery:string)=>{
           });
         }
       };
+
+      // Adding Employees
+
+      const handleAddEmployee = async (formData: any) => {
+        if (!Object.values(formData).every(field => field)) {
+          Swal.fire('Error', 'Please fill all fields.', 'error');
+          return;
+        }
+    
+        try {
+          const response = await fetch('/api/users', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
+          });
+    
+          const result = await response.json();
+          if (response.ok) {
+            Swal.fire({
+              title: 'Employee Added',
+              text: 'Employee Added Successfully',
+              icon: 'success',
+              confirmButtonText: 'OK',
+            });
+    
+            router.push('/users/index');
+          } else {
+            Swal.fire('Error', result.error || 'Failed to Add Employee', 'error');
+          }
+        } catch (error) {
+          console.error('Error Saving Employee', error);
+          Swal.fire('Error', 'Error Saving Employee', 'error');
+        }
+      };
+    
     
       // Handle search query filtering
       useEffect(() => {
@@ -52,7 +93,9 @@ const useUsers = (searchQuery:string)=>{
         fetchUsers();
       }, []);
 
-      // Handle delete logic
+  
+
+  // Handle delete
   const handleDelete = async () => {
     if (!selectedUserId) {
       Swal.fire('Error', 'Please select a user to delete', 'info');
@@ -97,12 +140,16 @@ const useUsers = (searchQuery:string)=>{
     });
   };
 
+
+
   return {
     allUsers,
     filteredUsers,
     selectedUserId,
     setSelectedUserId,
-    handleDelete
+    handleAddEmployee,
+    handleDelete,
+  
   };
 };
 
