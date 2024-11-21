@@ -45,7 +45,7 @@ const EmployeeForm = () => {
     handleAddEmployee(formData);
   };
 
-  //login using checking using JWT token
+  //login using checking using JWT token and checking for validation
   useEffect(() => {
     const token = Cookies.get('authToken');
     if (!token) {
