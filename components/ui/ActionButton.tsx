@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Button, IconButton, CircularProgress } from '@mui/material';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import Cookies from 'js-cookie'
 
@@ -53,7 +52,7 @@ const ActionButton = ({
             : {};
 
     return isLogout ? (
-        <IconButton onClick={handleLogout} style={{ color: 'white' }}>
+        <IconButton onClick={handleLogout} style={{ color: 'white' }} id='logout-button'>
             <ExitToAppIcon fontSize="large" />
         </IconButton>
     ) : link ? (
