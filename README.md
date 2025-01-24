@@ -62,11 +62,9 @@ npm run dev
 ```
 ---
 
-## Deployment
-This project is still under development
 
-Production Version - ***under development***
-Link to the production version will be displayed soon
+
+Production Version -  https://pharmasys.vercel.app/login![image](https://github.com/user-attachments/assets/c49f0108-7fe8-4e44-9ebe-a63da8f08ae8)
 
 ---
 
