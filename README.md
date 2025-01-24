@@ -64,7 +64,7 @@ npm run dev
 
 
 
-Production Version -  https://pharmasys.vercel.app/login![image](https://github.com/user-attachments/assets/c49f0108-7fe8-4e44-9ebe-a63da8f08ae8)
+Production Version -  https://pharmasys.vercel.app/login
 
 ---
 
